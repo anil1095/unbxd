@@ -23,7 +23,10 @@ For storing both Category and subcategory, I chose a single table named Category
 The purpose of choosing a single table for storing category and its subcategory is to reduce another table. The relations between
 any 2 categories can be mainted by simply assinging cat\_id of parent to parent\_id value of subcategory.
 
-I chose codeigniter as a framework just because I work on it daily.
+I choose MyISM db for product\_models with a combination of model\_id with auto\_increment and product\_id as primary key
+so that there is no need to read the number of already existing models for a given product to calculate model\_id for next insert on same product.
+
+I choose codeigniter as a framework just because I work on it daily.
 The default controller is _welcome_ controller where the complete business logic code is available.
 Views are available in *application/views*.
 Database interactions for inserts are done using models which are found in *application/models*.
