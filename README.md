@@ -36,6 +36,6 @@ CSV file is placed in *temp* folder at root level along with MySQL schema creati
 Dependencies: 
   1. Please use *unbxd schema.sql* to create database.
   2. Please set appropriate values for database connection in *application/config/database.php*.
-  3. To upload data from csv file into respective database please access *localhost/unbxd/saveUploadedFile*.
+  3. To upload data from csv file into respective database please access *localhost/unbxd/welcome/saveUploadedFile*.
   4. Please enable *rewrite_module* for apache.
   5. *localhost/unbxd* to search for products.
