@@ -37,7 +37,7 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-
+$route['productsAutoSuggest'] = 'welcome/productAuto';
 $route['display/(:num)'] 	= 'welcome/display/$1';
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';

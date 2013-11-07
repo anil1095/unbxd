@@ -7,9 +7,33 @@ class Welcome extends CI_Controller {
 	 * 
 	 * @author Anil
 	 */
-	public function index()
-	{
+	public function index(){
 		$this->load->view('home');
+	}
+	
+	public function productAuto(){
+		$str	=	mysql_real_escape_string(urldecode(preg_replace('!\s+!', ' ', trim($this->input->post("str")))));
+			
+		$result	= $this->db->select('name,product_id')
+		->where('name like "'.$str.'%"')
+		->group_by('name')
+		//->limit(10,0)
+		->get('product');
+		
+		$products_list	=	array();
+		
+		if ($result->num_rows()> 0){
+			foreach($result->result() as $v){
+				$products_list[] = array(
+					'id' => $v->product_id
+					,'name' => $v->name
+					,'url' => 'display/'.$v->product_id
+				);
+			}
+		}
+		
+		echo json_encode($products_list);
+		exit;
 	}
 	
 	/**
@@ -27,9 +51,6 @@ class Welcome extends CI_Controller {
 		$this->load->model('category','c');
 		$cat_data = $this->c->getParentsUptoCertainLevel($pdata->cat_id, 2);
 		
-		//echo '<pre>';print_r($pdata);echo '</pre>';
-		//echo '<pre>';print_r($cat_data);echo '</pre>';
-		//echo '<pre>';print_r($mdata);echo '</pre>';exit;
 		$this->load->view('details',array(
 			'product'	=> $pdata
 			,'cats'		=> $cat_data
@@ -52,7 +73,7 @@ class Welcome extends CI_Controller {
 		//reading the first line so that we dont loop thorough titles
 		$new_line = fgetcsv($file_handle, 0);
 		
-		while (!feof($file_handle) ) {
+		while (!feof($file_handle)){
 			$new_line = fgetcsv($file_handle, 0);
 			
 			$prod_name =  preg_replace('!\s+!', ' ', trim($new_line[2]));
@@ -98,6 +119,9 @@ class Welcome extends CI_Controller {
 		}
 		
 		fclose($file_handle);
+		
+		echo 'Upload Completed';
+		exit;
 	}
 }
 
